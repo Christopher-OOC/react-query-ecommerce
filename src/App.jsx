@@ -1,8 +1,21 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import CreateProductPage from "./pages/CreateProductPage";
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 0,
+        },
+    },
+});
+
 function App() {
     return (
-        <div className="mr-0 block bg-blue-50 p-2 font-bold text-red-500">
-            Hello React!
-        </div>
+        <QueryClientProvider client={queryClient}>
+            <div className="">
+                <CreateProductPage />
+            </div>
+        </QueryClientProvider>
     );
 }
 
