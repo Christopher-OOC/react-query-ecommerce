@@ -3,15 +3,18 @@ import { useProducts } from "./useProducts";
 import { useCreateProduct } from "./useCreateProduct";
 
 const ProductManagement = () => {
-    const { createProduct } = useCreateProduct();
+    const { isCreating: creating, createProduct } = useCreateProduct();
+
     const { products, isLoading, error } = useProducts();
+
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         price: "",
         quantity: "",
     });
-    const [isCreating, setIsCreating] = useState(true);
+
+    const [isCreating, setIsCreating] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
