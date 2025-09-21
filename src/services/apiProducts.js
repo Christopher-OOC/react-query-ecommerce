@@ -22,3 +22,11 @@ export async function createProduct(requestBody) {
 
     return data;
 }
+
+export async function deleteProduct(id) {
+    const { error } = await supabase.from("products").delete().eq("id", id);
+
+    if (error) {
+        throw new Error("Error occurs while creating products!");
+    }
+}

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useProducts } from "./useProducts";
 import { useCreateProduct } from "./useCreateProduct";
+import { FaTrash } from "react-icons/fa";
+import { useDeleteProduct } from "./useDeleteProduct";
 
 const ProductManagement = () => {
     const { isCreating: creating, createProduct } = useCreateProduct();
-
+    const { deleteProduct } = useDeleteProduct();
     const { products, isLoading, error } = useProducts();
 
     const [formData, setFormData] = useState({
@@ -27,6 +29,10 @@ const ProductManagement = () => {
     function handleCreateProduct(e) {
         e.preventDefault();
         createProduct(formData);
+    }
+
+    function handleDeleteProduct(id) {
+        deleteProduct(id);
     }
 
     if (isLoading && !error) {
@@ -255,8 +261,15 @@ const ProductManagement = () => {
                                                     </span>
                                                 </td>
                                                 <td className="px-4 py-3">
-                                                    <button className="text-red-500 transition-colors hover:text-red-700">
-                                                        <i className="fas fa-trash"></i>
+                                                    <button
+                                                        onClick={() =>
+                                                            handleDeleteProduct(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        className="text-red-500 transition-colors hover:text-red-700"
+                                                    >
+                                                        <FaTrash fill="blue" />
                                                     </button>
                                                 </td>
                                             </tr>
