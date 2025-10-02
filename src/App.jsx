@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CreateProductPage from "./pages/CreateProductPage";
 import { Toaster } from "react-hot-toast";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CreateUser from "./features/admins/CreateUser";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -13,9 +15,12 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <div className="">
-                <CreateProductPage />
-            </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route index element={<CreateProductPage />} />
+                    <Route path="/users" element={<CreateUser />} />
+                </Routes>
+            </BrowserRouter>
             <Toaster
                 position="top-right"
                 gutter={12}

@@ -3,20 +3,20 @@ import { useProducts } from "./useProducts";
 import { useCreateProduct } from "./useCreateProduct";
 import { FaTrash } from "react-icons/fa";
 import { useDeleteProduct } from "./useDeleteProduct";
+import { useNavigate } from "react-router-dom";
 
 const ProductManagement = () => {
     const { isCreating: creating, createProduct } = useCreateProduct();
     const { deleteProduct } = useDeleteProduct();
     const { products, isLoading, error } = useProducts();
-
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         price: "",
         quantity: "",
     });
-
     const [isCreating, setIsCreating] = useState(false);
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -70,6 +70,12 @@ const ProductManagement = () => {
                         className={`rounded-lg px-6 py-3 font-medium transition-all ${!isCreating ? "bg-blue-500 text-white shadow-md" : "bg-white text-gray-700 hover:bg-gray-50"}`}
                     >
                         <i className="fas fa-list mr-2"></i>View Products
+                    </button>
+                    <button
+                        onClick={() => navigate("/users")}
+                        className={`rounded-lg px-6 py-3 font-medium transition-all ${!isCreating ? "bg-blue-500 text-white shadow-md" : "bg-white text-gray-700 hover:bg-gray-50"}`}
+                    >
+                        <i className="fas fa-list mr-2"></i>Users
                     </button>
                 </div>
 
