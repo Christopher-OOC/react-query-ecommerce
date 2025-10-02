@@ -1,11 +1,35 @@
+import { useForm } from "react-hook-form";
+
 function CreateUser() {
+    const { register, handleSubmit, getValues, formState, reset } = useForm();
+
+    const { errors } = formState;
+
+    console.log(errors);
+
+    function onSubmit(data) {
+        console.log("DATA: ", data);
+        reset();
+    }
+
+    function onError(errors) {
+        console.log("ERRORS: ", errors);
+    }
+
     return (
         <div>
-            <form className="flex flex-col items-center gap-5">
+            <form
+                onSubmit={handleSubmit(onSubmit, onError)}
+                className="flex flex-col items-center gap-5"
+            >
                 <h1>Create User</h1>
                 <div>
                     <label>Full Name: </label>
                     <input
+                        id="fullName"
+                        {...register("fullName", {
+                            required: "Full Name is required",
+                        })}
                         className="w-[200px] rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         type="text"
                     />
@@ -13,6 +37,10 @@ function CreateUser() {
                 <div>
                     <label>Date of Birth: </label>
                     <input
+                        id="dateOfBirth"
+                        {...register("dateOfBirth", {
+                            required: "Date of Birth is required",
+                        })}
                         className="w-[200px] rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         type="date"
                     />
@@ -20,6 +48,10 @@ function CreateUser() {
                 <div>
                     <label>Email: </label>
                     <input
+                        id="email"
+                        {...register("email", {
+                            required: "Email is required",
+                        })}
                         className="w-[200px] rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         type="text"
                     />
@@ -27,6 +59,10 @@ function CreateUser() {
                 <div>
                     <label>Password: </label>
                     <input
+                        id="password"
+                        {...register("password", {
+                            required: "Password is required",
+                        })}
                         className="w-[200px] rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         type="password"
                     />
@@ -34,6 +70,13 @@ function CreateUser() {
                 <div>
                     <label>Confirm Password: </label>
                     <input
+                        id="confirmPassword"
+                        {...register("confirmPassword", {
+                            required: "Confirm Password is required",
+                            validate: (value) =>
+                                value === getValues().password ||
+                                "Password does not match",
+                        })}
                         className="w-[200px] rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         type="password"
                     />
